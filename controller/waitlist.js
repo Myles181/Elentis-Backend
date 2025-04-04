@@ -8,6 +8,12 @@ async function waitlistAdd(req, res) {
         if (!email) return res.status(400).json({ message: 'Email field is required' });
 
         // Save email in waitlist
+        const emailExist = await Waitlist.findOne({email: email});
+        if (emailExist) return res.status(200).json({
+            success: true,
+            message: 'Email already exist in waitlist'
+        });
+
         await Waitlist.create({
             email: email
         });
