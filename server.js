@@ -39,7 +39,9 @@ const corsOptions = {
         process.env.WEB_BASE_URL,
         process.env.SERVER_URL,
         `http://localhost:${PORT}`,
-        `https://elentis.app`
+        `http://localhost:5173`,
+        `https://elentis.app`,
+        'https://www.elentis.app/',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
