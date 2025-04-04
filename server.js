@@ -41,7 +41,7 @@ const corsOptions = {
         `http://localhost:${PORT}`,
         `http://localhost:5173`,
         `https://elentis.app`,
-        'https://www.elentis.app/',
+        'https://www.elentis.app',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
