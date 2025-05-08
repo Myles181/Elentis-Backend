@@ -36,7 +36,11 @@ async function waitlistRetrieve(req, res) {
     try {
         const emails = await Waitlist.find({}, {email: 1, createdAt: 1, _id: 0}).sort({ createdAt: -1 });
 
-        return res.status(200).json({ emails });
+        return res.status(200).json({
+            success: true,
+            length: emails.length,
+            emails 
+        });
 
     } catch (error) {
         console.log("error::", error);
