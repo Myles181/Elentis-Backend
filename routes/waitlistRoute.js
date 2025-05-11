@@ -18,6 +18,14 @@ let router = express.Router();
  *             properties:
  *               email:
  *                 type: string
+ *               name:
+ *                 type: string
+ *              interest:
+ *                type: string
+ *              skills:
+ *               type: string
+ *             earlyAccess:
+ *              type: boolean
  *     responses:
  *       201:
  *         description: Email added succesfully
