@@ -2,10 +2,12 @@ const { Waitlist } = require('../models/waitlist');
 
 async function waitlistAdd(req, res) {
     try {
-        const { email, name, interest, skills, earlyAccess } = req.body;
+        const { email, name, interest, skills, earlyAccess=true } = req.body.formData;
 
         // Check if email is empty
-        if (!email || !name || !interest || !skills || !earlyAccess) return res.status(400).json({ message: 'Required fields missing' });
+        console.log(req.body);
+        console.log(email, skills, name, interest);
+        if (!email || !name || !interest || !skills) return res.status(400).json({ message: 'Required fields missing' });
 
         // Save email in waitlist
         const emailExist = await Waitlist.findOne({email: email});
@@ -38,7 +40,13 @@ async function waitlistAdd(req, res) {
 
 async function waitlistRetrieve(req, res) {
     try {
-        const emails = await Waitlist.find({}, {email: 1, createdAt: 1, _id: 0}).sort({ createdAt: -1 });
+        const emails = await Waitlist.find({}, {
+            email: 1,
+            createdAt: 1,
+            interest: 1,
+            skills: 1,
+            earlyAccess: 1,
+            _id: 0}).sort({ createdAt: -1 });
 
         return res.status(200).json({
             success: true,

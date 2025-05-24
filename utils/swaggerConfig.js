@@ -11,16 +11,16 @@ let options = {
         },
         components: {
             securitySchemes: {
-                fluxelAccessToken: {
+                elentisAccessToken: {
                     type: 'apiKey',
                     in: 'header',
-                    name: 'FluxelAccessToken',
+                    name: 'ElentisAccessToken',
                     description: 'Custom access token for authentication'
                 }
             }
         },
         security: [
-            { fluxelAccessToken: [] }
+            { elentisAccessToken: [] }
         ]
     },
     apis: ['./routes/*.js'],
