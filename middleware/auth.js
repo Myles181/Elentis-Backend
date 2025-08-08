@@ -1,35 +1,35 @@
 // importing the required modules
-import { User } from "../models/users.js";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-// import speakeasy from 'speakeasy';
-// import { sendPushNotification } from "../utils/ExpoNotify.js";
+const { Users } = require("../models/users");
+const jwt = require("jsonwebtoken");
+require('dotenv').config();
 
-// Load environment variables
-dotenv.config();
+const tokenRequired = async (req, res, next) => {
+     // Check for token in different possible header names
+     const token = req.headers.elentisaccesstoken || 
+                   req.headers.authorization?.replace('Bearer ', '') ||
+                   req.headers['x-access-token'] ||
+                   req.headers['x-auth-token'];
 
-export const tokenRequired = async (req, res, next) => {
-     if (!req.headers.fluxelaccesstoken) {
+     if (!token) {
           return res.status(401).json({
                status: false,
-               message: "You've got some errors.",
+               message: "Access token is required",
                error: "TOKEN_ERROR"
           });
      }
 
      try {
-          const token = req.headers.elentisaccesstoken;
           const decodedToken = jwt.verify(token, process.env.SECRET_KEY, {
                algorithms: "HS256"
           });
 
-          const user = await User.findOne({
+          const user = await Users.findOne({
                _id: decodedToken._id,
           });
           if (!user) {
                return res.status(401).json({
                     status: false,
-                    message: "You've got some errors.",
+                    message: "Invalid token",
                     error: "INVALID_TOKEN_ERROR"
                });
           }
@@ -39,11 +39,13 @@ export const tokenRequired = async (req, res, next) => {
 
           next();
      } catch (error) {
-          logger.error('Token validation failed', { error: error.message });
+          console.error('Token validation failed', { error: error.message });
           return res.status(401).json({
                status: false,
-               message: "You've got some errors.",
+               message: "Invalid token",
                error: "INVALID_TOKEN_ERROR"
           });
      }
 };
+
+module.exports = { tokenRequired };

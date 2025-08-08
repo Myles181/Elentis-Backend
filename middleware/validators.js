@@ -8,7 +8,7 @@ exports.signupValidator = [
         .isLength({ min: 5 }).withMessage('Username must be at least 5 characters long'),
 
     body('skills')
-        .optional().trim().isString().withMessage('Must be a string'),
+        .optional().isArray().withMessage('Skills must be an array'),
 
     body('interest').optional().isString().withMessage('Must be a string')
         .trim(),

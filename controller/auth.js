@@ -22,7 +22,7 @@ async function Signup(req, res) {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password, interest="", skills="", referBy="" } = req.body;
+    const { name, email, password, skills, interest, referBy="" } = req.body;
 
     try {
         // Check if the user already exists
@@ -45,8 +45,8 @@ async function Signup(req, res) {
             name: name,
             password: hashedPassword,
             email: lowerCaseEmail,
-            interest: interest,
-            skills: skills,
+            skills: skills || [],
+            interest: interest || "",
             ipAddress: ipAddress,
             referBy: referBy,
             refCode: refCode
@@ -380,7 +380,7 @@ const loginUser = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    let { email, password } = req.body;
+    let { email, password, EXPO_PUSH_TOKEN: expoPushToken } = req.body;
 
     try {
         // Normalize email
@@ -430,6 +430,13 @@ const loginUser = async (req, res) => {
             }
         }
 
+        // save the expoPushToken if not saved already
+        if (!user.expoPushToken && expoPushToken) {
+            user.expoPushToken = expoPushToken;
+            await user.save();
+            console.log('Updated user expoPushToken:', expoPushToken.substring(0, 20) + '...');
+        }
+
         // Create the token
         const token = await jwt.sign({_id: user._id}, process.env.SECRET_KEY, {
             algorithm: "HS256",
@@ -443,6 +450,9 @@ const loginUser = async (req, res) => {
                 id: user._id,
                 email: user.email,
                 name: user.name,
+                expoPushToken: user.expoPushToken,
+                lastLogin: user.lastLogin,
+                createdAt: user.createdAt,
                 // Don't send password or sensitive info
             },
             token

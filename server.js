@@ -52,6 +52,8 @@ app.use(cors(corsOptions));
 // Sample route
 const waitlistRoute = require('./routes/waitlistRoute');
 const authRoute = require('./routes/authRoutes');
+const userRoute = require('./routes/userRoutes');
+const courseRoute = require('./routes/courseRoutes');
 
 app.get("/", (req, res) => {
   res.send("Hello, Express.js!");
@@ -59,6 +61,8 @@ app.get("/", (req, res) => {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/waitlist', waitlistRoute);
 app.use('/api/auth', authRoute);
+app.use('/api/user', userRoute);
+app.use('/api/courses', courseRoute);
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))

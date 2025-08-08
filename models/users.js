@@ -7,7 +7,7 @@ const UsersSchema = new mongoose.Schema({
     name: { type: String, required: true },
     profilePicture: { type: String, required: false },
     interest: { type: String, required: false },
-    skills: { type: String, required: false },
+    skills: { type: [String], required: false },
     ipAddress: {type: String, required: false},
     location: {type: String, required: false},
     language: {type: String, required: false},
@@ -21,9 +21,13 @@ const UsersSchema = new mongoose.Schema({
         },
         unique: true
     },
+    referralCount: { type: Number, default: 0 },
+    dailyReminder: { type: Boolean, default: false },
+    dailyReminderTime: { type: String, default: "10:00" },
     emailVerified: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now },
     lastLogin: {type: Date, required: false},
+    expoPushToken: {type: String, required: false},
 });
 
 const Users = mongoose.model('Users', UsersSchema);
