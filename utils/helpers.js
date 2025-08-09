@@ -114,4 +114,27 @@ function isValidCloudinaryUrl(url) {
     return cloudinaryImagePattern.test(url) || cloudinaryVideoPattern.test(url);
 }
 
-module.exports = { createOrUpdateOTP, createOrUpdateResetOTP, generateReferralCdoe, getDailyReminderTime, isValidCloudinaryUrl };
+/**
+ * Uploads an image to Cloudinary
+ * @param {Object} file - File object from multer
+ * @returns {Promise<Object>} - Cloudinary upload result
+ */
+async function uploadImage(file) {
+    const cloudinary = require('cloudinary').v2;
+    
+    try {
+        const result = await cloudinary.uploader.upload(file.path, {
+            folder: 'elentis/jobs',
+            resource_type: 'image'
+        });
+        
+        return {
+            url: result.secure_url,
+            public_id: result.public_id
+        };
+    } catch (error) {
+        throw new Error(`Image upload failed: ${error.message}`);
+    }
+}
+
+module.exports = { createOrUpdateOTP, createOrUpdateResetOTP, generateReferralCdoe, getDailyReminderTime, isValidCloudinaryUrl, uploadImage };
