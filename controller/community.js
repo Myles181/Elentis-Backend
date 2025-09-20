@@ -50,8 +50,6 @@ const createCommunity = asyncHandler(async (req, res) => {
     });
 });
 
-// Optional: Add more functions like getCommunities, joinCommunity, etc.
-
 const getCommunities = asyncHandler(async (req, res) => {
     const communities = await Community.find({ isPrivate: true });
 

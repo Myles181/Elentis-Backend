@@ -31,7 +31,7 @@ const router = express.Router();
  *                 type: string
  *               isPrivate:
  *                 type: boolean
- *              requestRequired:
+ *               requestRequired:
  *                 type: boolean
  *     responses:
  *       200:
@@ -100,7 +100,7 @@ router.get('/my', tokenRequired, getMyCommunities);
  *           schema:
  *             type: object
  *             properties:
- *               inviteCode:
+ *               invitationCode:
  *                 type: string
  *     responses:
  *       200:
