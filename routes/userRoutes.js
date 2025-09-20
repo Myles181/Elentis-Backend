@@ -1,5 +1,5 @@
 const express = require('express');
-const { getUser, updateUser } = require('../controller/user');
+const { getUser, updateUser, getAllMessagesProfile, getMessageById, markMessagesAsRead } = require('../controller/user');
 const { tokenRequired } = require('../middleware/auth');
 const router = express.Router();
 
@@ -89,4 +89,4 @@ router.get('/profile', tokenRequired, getUser);
  */
 router.put('/profile', tokenRequired, updateUser);
 
-module.exports = router; 
+module.exports = router;

@@ -1,4 +1,6 @@
 const { Users } = require('../models/users');
+const Message = require('../models/messages');;
+const Community = require('../models/community');
 const { validationResult } = require('express-validator');
 const { getDailyReminderTime } = require('../utils/helpers');
 const cloudinary = require('cloudinary').v2;
@@ -62,6 +64,7 @@ const updateUser = async (req, res) => {
         userData
     });
 }
+
 
 module.exports = { getUser, updateUser };
 

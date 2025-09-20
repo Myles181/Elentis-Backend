@@ -28,6 +28,9 @@ const UsersSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
     lastLogin: {type: Date, required: false},
     expoPushToken: {type: String, required: false},
+    cryptoBalance: { type: Number, default: 0 }, // USDT balance (in smallest units, e.g., 10^6 for 1 USDT)
+    fiatBalance: { type: Number, default: 0 }, // USD balance (in cents)
+    stripeCustomerId: { type: String }
 });
 
 const Users = mongoose.model('Users', UsersSchema);

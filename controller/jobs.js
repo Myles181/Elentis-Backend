@@ -202,48 +202,6 @@ const getJobsByUser = async (req, res) => {
     }
 }
 
-const applyForJob = async (req, res) => {
-    try {
-        const user = req.user;
-        const { coverLetter, yearsOfExperience } = req.body;
-        const resume = req.files ? req.files.resume : null;
-
-        const job = await Jobs.findById(req.params.id);
-        if (!job) {
-            return res.status(404).json({
-                success: false,
-                message: 'Job not found'
-            });
-        }
-
-        const resumeUrl = await uploadImage(resume);
-        const application = await JobApplications.create({
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-            user: user._id,
-            job: job._id,
-            status: 'pending',
-            resume: resumeUrl.url,
-            coverLetter,
-            yearsOfExperience,
-            appliedAt: Date.now()
-        });
-        return res.status(200).json({
-            success: true,
-            message: 'Application submitted successfully',
-            application: application
-        });
-    }
-    catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: 'Internal server error',
-            error: error.message
-        });
-    }
-}
-
 const getApplicationsForJob = async (req, res) => {
     try {
         const user = req.user;
@@ -287,4 +245,4 @@ const getApplicationsForJob = async (req, res) => {
     }
 }
 
-module.exports = { createJob, getJobs, getJobById, updateJob, deleteJob, getJobsByUser, applyForJob, getApplicationsForJob };
+module.exports = { createJob, getJobs, getJobById, updateJob, deleteJob, getJobsByUser, getApplicationsForJob };

@@ -4,7 +4,7 @@ const JobApplicationSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: String, required: true },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
     job: { type: mongoose.Schema.Types.ObjectId, ref: 'Job', required: true },
     status: { type: String, required: true, enum: ['pending', 'shortlisted', 'rejected'] },
     resume: { type: String, required: true },
