@@ -13,7 +13,7 @@ class Mail {
         this.appName = process.env.APP_NAME
 
         this.welcomeMail = path.join(__dirname, "../mails/welcome.html");
-        this.loginWarning = path.join(__dirname, "../mails/login_warning.html");
+        this._loginWarning = path.join(__dirname, "../mails/login_warning.html");
         // this.contactMail = path.join(__dirname, "../mails/contact.html");
         // this.depositMail = path.join(__dirname, "../mails/deposit-confirmation.html");
         // this.kycApprovedMail = path.join(__dirname, "../mails/kyc-approved.html");
@@ -251,7 +251,7 @@ class Mail {
                 address: this.admin,
             },
             subject: 'Login Warning',
-            html: await this.renderTemplateString(this.loginWarning, data),
+            html: await this.renderTemplateString(this._loginWarning, data),
         };
 
         return new Promise((resolve, reject) => {
