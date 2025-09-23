@@ -8,6 +8,7 @@ const { createOrUpdateOTP, createOrUpdateResetOTP, generateReferralCdoe } = requ
 let { Mail } = require("../middleware/mails");
 let mail = new Mail();
 const { validationResult } = require('express-validator');
+const axios = require('axios');
 
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
