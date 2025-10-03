@@ -112,8 +112,8 @@ const corsOptions = {
         `http://localhost:5173`,
         `https://elentis.app`,
         'https://www.elentis.app',
-        'http://elentis-api-forge.lovable.app',
-        'https://www.elentis-api-forge.lovable.app',
+        'https://preview--elentis-api-forge.lovable.app',
+        'https://www.preview--elentis-api-forge.lovable.app'
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
